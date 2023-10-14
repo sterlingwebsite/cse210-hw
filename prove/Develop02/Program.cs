@@ -7,6 +7,7 @@ class Program
         Console.WriteLine("Welcome to the Journal Program!");
         string userResponse = "";
         Journal journal = new Journal();
+
         do
         {
             Console.WriteLine("Please select one of the following choices:");
@@ -16,32 +17,39 @@ class Program
             Console.WriteLine("4. Save");
             Console.WriteLine("5. Quit");
             Console.Write("What would you like to do? ");
+
             userResponse = Console.ReadLine();
-            if (userResponse == "1")
+
+            if (int.TryParse(userResponse, out int choice))
             {
-               journal.AddEntry();
-            }
-            else if (userResponse == "2")
-            {
-                journal.DisplayJournal();
-            }
-            else if (userResponse == "3")
-            {
-                journal.LoadJournal();                
-            }
-            else if (userResponse == "4")
-            {
-                journal.SaveJournal();
-            }
-            else if (userResponse == "5")
-            {
+                switch (choice)
+                {
+                    case 1:
+                        journal.AddEntry();
+                        break;
+                    case 2:
+                        journal.DisplayJournal();
+                        break;
+                    case 3:
+                        journal.LoadJournal();
+                        break;
+                    case 4:
+                        journal.SaveJournal();
+                        break;
+                    case 5:
+                        Console.WriteLine("Goodbye!");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        break;
+                }
             }
             else
             {
-                Console.WriteLine("Please type a valid number.");
+                Console.WriteLine("Invalid input. Please enter a number.");
             }
+
             Console.WriteLine();
-        }
-        while(userResponse != "5");
+        } while (userResponse != "5");
     }
 }
