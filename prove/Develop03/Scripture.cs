@@ -1,55 +1,38 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 class Scripture
 {
     private Reference _reference;
     private List<Word> _words;
-    private Random _random;
 
-    public Scripture(string reference, string text)
+    public Scripture(string book, int chapter, int verseStart, int verseEnd, string text)
     {
-        _reference = new Reference(reference);
-        _words = text.Split(' ').Select(word => new Word(word)).ToList();
-        _random = new Random();
+        _reference = new Reference(book, chapter, verseStart, verseEnd);
+        _words = ParseText(text);
     }
 
-    public void HideRandomWords()
+    private List<Word> ParseText(string text)
     {
-        // Get a list of words that are not already hidden
-        List<Word> wordsToHide = _words.Where(word => !word.IsHidden).ToList();
+        string[] wordsArray = text.Split(new[] { ' ', '.', ',', ';', ':', '!', '?' }, StringSplitOptions.RemoveEmptyEntries);
+        List<Word> wordsList = new List<Word>();
 
-        // Determine how many words to hide (you can adjust this number)
-        int wordsToHideCount = _random.Next(1, 4); // Hide 1 to 3 words at a time
-
-        // Hide random words
-        for (int i = 0; i < wordsToHideCount; i++)
+        foreach (var wordText in wordsArray)
         {
-            if (wordsToHide.Count > 0)
-            {
-                int randomIndex = _random.Next(0, wordsToHide.Count);
-                wordsToHide[randomIndex].IsHidden = true;
-                wordsToHide.RemoveAt(randomIndex);
-            }
+            wordsList.Add(new Word(wordText));
         }
-    }
 
-    public bool AllWordsHidden()
-    {
-        // Check if all words in the scripture are hidden
-        return _words.All(word => word.IsHidden);
+        return wordsList;
     }
 
     public void Display()
     {
-        // Display the complete scripture including reference and text
         Console.WriteLine($"{_reference.Book} {_reference.Chapter}:{_reference.VerseStart}-{_reference.VerseEnd}");
         foreach (var word in _words)
         {
             if (word.IsHidden)
             {
-                Console.Write("***** "); // Print asterisks for hidden words
+                Console.Write(new string('*', word.Text.Length) + " ");
             }
             else
             {
@@ -57,5 +40,59 @@ class Scripture
             }
         }
         Console.WriteLine();
+    }
+
+    public void HideRandomWords(int wordsToHide)
+    {
+        ValidateWordsToHide(wordsToHide);
+
+        Random random = new Random();
+        List<int> unhiddenWordIndices = GetUnhiddenWordIndices(wordsToHide);
+
+        for (int i = 0; i < wordsToHide; i++)
+        {
+            int randomIndex = random.Next(unhiddenWordIndices.Count);
+            int wordIndex = unhiddenWordIndices[randomIndex];
+
+            _words[wordIndex].IsHidden = true;
+            unhiddenWordIndices.RemoveAt(randomIndex);
+        }
+    }
+
+    private void ValidateWordsToHide(int wordsToHide)
+    {
+        if (wordsToHide < 0 || wordsToHide > _words.Count)
+        {
+            throw new ArgumentException("Invalid number of words to hide.");
+        }
+    }
+
+    private List<int> GetUnhiddenWordIndices(int wordsToHide)
+    {
+        List<int> unhiddenWordIndices = new List<int>();
+        for (int i = 0; i < _words.Count; i++)
+        {
+            if (!_words[i].IsHidden)
+            {
+                unhiddenWordIndices.Add(i);
+            }
+        }
+        if (unhiddenWordIndices.Count < wordsToHide)
+        {
+            throw new InvalidOperationException("Not enough words to hide.");
+        }
+        return unhiddenWordIndices;
+    }
+
+    public bool AllWordsHidden()
+    {
+        foreach (var word in _words)
+        {
+            if (!word.IsHidden)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

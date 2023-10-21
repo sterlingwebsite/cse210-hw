@@ -1,13 +1,15 @@
 class Reference
 {
-    public string Book { get; private set; }
-    public int Chapter { get; private set; }
-    public int VerseStart { get; private set; }
-    public int VerseEnd { get; private set; }
+    public string Book { get; }
+    public int Chapter { get; }
+    public int VerseStart { get; }
+    public int VerseEnd { get; }
 
-    public Reference(string reference)
+    public Reference(string book, int chapter, int verseStart, int verseEnd)
     {
-        // Parse the reference string and initialize Book, Chapter, VerseStart, and VerseEnd
-        // Handle single verses and verse ranges (e.g., "Proverbs 3:5" or "Proverbs 3:5-6")
+        Book = book;
+        Chapter = chapter;
+        VerseStart = verseStart;
+        VerseEnd = verseEnd;
     }
 }

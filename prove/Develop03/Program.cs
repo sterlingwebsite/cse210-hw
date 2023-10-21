@@ -1,29 +1,48 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 class Program
 {
     static void Main(string[] args)
     {
-        // Example usage of the classes
-        Scripture scripture = new Scripture("John 3:16", "For God so loved the world...");
-        
-        do
+        // Create a list of Scriptures
+        List<Scripture> scriptures = new List<Scripture>
         {
-            scripture.Display();
-            Console.WriteLine("Press Enter to continue or type 'quit' to exit.");
-            string userInput = Console.ReadLine().ToLower();
+            new Scripture("John", 3, 16, 16, "For God so loved the world..."),
+            // Add more scriptures if needed
+        };
 
-            if (userInput == "quit")
+        try
+        {
+            foreach (var scripture in scriptures)
             {
-                break;
+                do
+                {
+                    scripture.Display();
+                    Console.WriteLine("Press Enter to continue or type 'quit' to exit.");
+                    string userInput = Console.ReadLine().ToLower();
+
+                    if (userInput == "quit")
+                    {
+                        return;
+                    }
+
+                    // Logic to hide random words in the scripture
+                    scripture.HideRandomWords(5); // Change 5 to the number of words you want to hide
+                    Console.Clear();
+
+                } while (!scripture.AllWordsHidden());
             }
 
-            scripture.HideRandomWords();
-            Console.Clear();
-        } while (!scripture.AllWordsHidden());
-
-        Console.WriteLine("All words in the scripture are hidden. Program ended.");
+            Console.WriteLine("All words in the scriptures are hidden. Program ended.");
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine($"Error: Invalid input - {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
     }
 }
