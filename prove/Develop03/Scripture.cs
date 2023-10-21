@@ -26,38 +26,51 @@ class Scripture
     }
 
     public void Display()
+{
+    if (_reference.VerseStart == _reference.VerseEnd)
+    {
+        Console.WriteLine($"{_reference.Book} {_reference.Chapter}:{_reference.VerseStart}");
+    }
+    else
     {
         Console.WriteLine($"{_reference.Book} {_reference.Chapter}:{_reference.VerseStart}-{_reference.VerseEnd}");
-        foreach (var word in _words)
+    }
+
+    foreach (var word in _words)
+    {
+        if (word.IsHidden)
         {
-            if (word.IsHidden)
-            {
-                Console.Write(new string('*', word.Text.Length) + " ");
-            }
-            else
-            {
-                Console.Write(word.Text + " ");
-            }
+            Console.Write(new string('_', word.Text.Length) + " ");
         }
-        Console.WriteLine();
+        else
+        {
+            Console.Write(word.Text + " ");
+        }
+    }
+    Console.WriteLine();
+}
+
+
+    private string FormatVerseRange()
+    {
+        return _reference.VerseStart == _reference.VerseEnd
+            ? _reference.VerseStart.ToString()
+            : $"{_reference.VerseStart}-{_reference.VerseEnd}";
     }
 
     public void HideRandomWords(int wordsToHide)
+{
+    ValidateWordsToHide(wordsToHide);
+    Queue<int> unhiddenWordIndices = GetUnhiddenWordIndices(wordsToHide);
+
+    List<int> originalIndices = new List<int>(unhiddenWordIndices);
+
+    foreach (var index in originalIndices)
     {
-        ValidateWordsToHide(wordsToHide);
-
-        Random random = new Random();
-        List<int> unhiddenWordIndices = GetUnhiddenWordIndices(wordsToHide);
-
-        for (int i = 0; i < wordsToHide; i++)
-        {
-            int randomIndex = random.Next(unhiddenWordIndices.Count);
-            int wordIndex = unhiddenWordIndices[randomIndex];
-
-            _words[wordIndex].IsHidden = true;
-            unhiddenWordIndices.RemoveAt(randomIndex);
-        }
+        _words[index].IsHidden = true;
     }
+}
+
 
     private void ValidateWordsToHide(int wordsToHide)
     {
@@ -67,22 +80,26 @@ class Scripture
         }
     }
 
-    private List<int> GetUnhiddenWordIndices(int wordsToHide)
+    private Queue<int> GetUnhiddenWordIndices(int wordsToHide)
+{
+    List<int> unhiddenIndices = new List<int>();
+    for (int i = 0; i < _words.Count; i++)
     {
-        List<int> unhiddenWordIndices = new List<int>();
-        for (int i = 0; i < _words.Count; i++)
+        if (!_words[i].IsHidden)
         {
-            if (!_words[i].IsHidden)
-            {
-                unhiddenWordIndices.Add(i);
-            }
+            unhiddenIndices.Add(i);
         }
-        if (unhiddenWordIndices.Count < wordsToHide)
-        {
-            throw new InvalidOperationException("Not enough words to hide.");
-        }
-        return unhiddenWordIndices;
     }
+
+    if (unhiddenIndices.Count < wordsToHide)
+    {
+        throw new InvalidOperationException("Not enough words to hide.");
+    }
+
+    Queue<int> unhiddenWordIndices = new Queue<int>(unhiddenIndices.OrderBy(x => Guid.NewGuid()));
+    return new Queue<int>(unhiddenWordIndices.Take(wordsToHide));
+}
+
 
     public bool AllWordsHidden()
     {
@@ -93,6 +110,7 @@ class Scripture
                 return false;
             }
         }
+
         return true;
     }
 }

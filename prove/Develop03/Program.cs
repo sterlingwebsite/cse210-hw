@@ -8,7 +8,7 @@ class Program
         // Create a list of Scriptures
         List<Scripture> scriptures = new List<Scripture>
         {
-            new Scripture("John", 3, 16, 16, "For God so loved the world..."),
+            new Scripture("John", 3, 16, 16, "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."),
             // Add more scriptures if needed
         };
 
