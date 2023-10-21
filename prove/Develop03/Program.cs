@@ -5,11 +5,9 @@ class Program
 {
     static void Main(string[] args)
     {
-        // Create a list of Scriptures
         List<Scripture> scriptures = new List<Scripture>
         {
             new Scripture("John", 3, 16, 16, "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."),
-            // Add more scriptures if needed
         };
 
         try
@@ -26,9 +24,7 @@ class Program
                     {
                         return;
                     }
-
-                    // Logic to hide random words in the scripture
-                    scripture.HideRandomWords(5); // Change 5 to the number of words you want to hide
+                    scripture.HideRandomWords(5);
                     Console.Clear();
 
                 } while (!scripture.AllWordsHidden());
