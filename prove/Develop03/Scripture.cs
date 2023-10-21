@@ -6,10 +6,13 @@ class Scripture
     private Reference _reference;
     private List<Word> _words;
 
+    public int Score { get; private set; }
+
     public Scripture(string book, int chapter, int verseStart, int verseEnd, string text)
     {
         _reference = new Reference(book, chapter, verseStart, verseEnd);
         _words = ParseText(text);
+        Score = 0; // Initialize the score to 0 when a new scripture is created
     }
 
     private List<Word> ParseText(string text)
@@ -26,29 +29,30 @@ class Scripture
     }
 
     public void Display()
-{
-    if (_reference.VerseStart == _reference.VerseEnd)
     {
-        Console.WriteLine($"{_reference.Book} {_reference.Chapter}:{_reference.VerseStart}");
-    }
-    else
-    {
-        Console.WriteLine($"{_reference.Book} {_reference.Chapter}:{_reference.VerseStart}-{_reference.VerseEnd}");
-    }
-
-    foreach (var word in _words)
-    {
-        if (word.IsHidden)
+        if (_reference.VerseStart == _reference.VerseEnd)
         {
-            Console.Write(new string('_', word.Text.Length) + " ");
+            Console.WriteLine($"{_reference.Book} {_reference.Chapter}:{_reference.VerseStart}");
         }
         else
         {
-            Console.Write(word.Text + " ");
+            Console.WriteLine($"{_reference.Book} {_reference.Chapter}:{_reference.VerseStart}-{_reference.VerseEnd}");
         }
+        Console.WriteLine($"Score: {Score}"); // Display the user's score
+
+        foreach (var word in _words)
+        {
+            if (word.IsHidden)
+            {
+                Console.Write(new string('_', word.Text.Length) + " ");
+            }
+            else
+            {
+                Console.Write(word.Text + " ");
+            }
+        }
+        Console.WriteLine();
     }
-    Console.WriteLine();
-}
 
 
     private string FormatVerseRange()
@@ -61,13 +65,15 @@ class Scripture
     public void HideRandomWords(int wordsToHide)
 {
     ValidateWordsToHide(wordsToHide);
+
+    Random random = new Random();
     Queue<int> unhiddenWordIndices = GetUnhiddenWordIndices(wordsToHide);
 
-    List<int> originalIndices = new List<int>(unhiddenWordIndices);
-
-    foreach (var index in originalIndices)
+    for (int i = 0; i < wordsToHide; i++)
     {
-        _words[index].IsHidden = true;
+        int randomIndex = unhiddenWordIndices.Dequeue();
+        _words[randomIndex].IsHidden = true;
+        Score += 10; // Increase the score when a word is successfully hidden
     }
 }
 
