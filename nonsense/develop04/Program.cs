@@ -33,14 +33,14 @@ class Program
                 switch (choice)
                 {
                     case 1:
-                        selectedActivity = new BreathingActivity();
+                        selectedActivity = new BreathingActivity("Breathing Activity", "Helps you relax by focusing on breathing.");
                         break;
                     case 2:
                         // Ask for duration for ReflectionActivity
                         Console.WriteLine("Enter the duration of the activity in seconds:");
                         if (int.TryParse(Console.ReadLine(), out duration) && duration > 0)
                         {
-                            selectedActivity = new ReflectionActivity(duration);
+                            selectedActivity = new ReflectionActivity("Reflection Activity", "Helps you reflect on your experiences.", duration);
                         }
                         else
                         {
@@ -49,7 +49,7 @@ class Program
                         }
                         break;
                     case 3:
-                        selectedActivity = new ListingActivity();
+                        selectedActivity = new ListingActivity("Listing Activity", "Encourages listing positive things in your life.");
                         break;
                     case 4:
                         Environment.Exit(0); // Exit the program
@@ -59,8 +59,8 @@ class Program
                         continue;
                 }
 
+                selectedActivity.SetDuration(duration); // Set the duration for the selected activity
                 selectedActivity.StartActivity(); // Start the selected activity
-
                 selectedActivity.EndActivity(); // Display ending message
             }
             else
