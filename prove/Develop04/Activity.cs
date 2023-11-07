@@ -1,31 +1,43 @@
-class Activity
+public class Activity
 {
-    protected string _activityName;
-    protected string _description;
-    protected int _duration;
-
-    public Activity(string name, string desc)
+    protected string activityType;
+    protected string activityDescription;
+    private int _duration;
+    private int _fullDuration;
+    public void SetActivityType(string value)
     {
-        _activityName = name;
-        _description = desc;
+        activityType = value;
+    }
+    public string GetActivityType()
+    {
+        return activityType;
     }
 
-    public void SetDuration(int seconds)
+    public void SetActivityDescription(string value)
     {
-        _duration = seconds;
+        activityDescription = value;
+    }
+
+    public string GetActivityDescription()
+    {
+        return activityDescription;
+    }
+
+    public void OpeningPrompt()
+    {
+        Console.WriteLine("This is the opening prompt for the activity.");
+        Console.ReadLine();
+        Console.Clear();
+        Console.WriteLine($"Welcome to the {activityType}.");
+        Console.WriteLine(activityDescription);
+        Console.WriteLine("How long, in seconds, would you like your session?");
+        _duration = int.Parse(Console.ReadLine());
+        _fullDuration = _duration;
+        _duration = (int)(_duration * 0.1);
     }
 
     public virtual void StartActivity()
     {
-        Console.WriteLine($"Starting {_activityName}: {_description}");
-        Console.WriteLine("Prepare to begin the activity...");
 
-        // Code specific to the activity can be added here
-    }
-
-    public virtual void EndActivity()
-    {
-        Console.WriteLine($"Congratulations! You've completed {_activityName}.");
-        Console.WriteLine($"Total duration: {_duration} seconds.");
     }
 }

@@ -1,71 +1,60 @@
-class Program
+public class ProgramManager
 {
-    private static string GetUserInput(string prompt, Func<string, bool> validationFunc = null)
+    public void StartActivity(Activity activity)
     {
-        Console.WriteLine(prompt);
-        string userInput = Console.ReadLine();
-
-        // Validate the user input based on the provided validation function (if any)
-        while (string.IsNullOrWhiteSpace(userInput) || (validationFunc != null && !validationFunc(userInput)))
-        {
-            Console.WriteLine("Invalid input. Please provide a valid response:");
-            userInput = Console.ReadLine();
-        }
-
-        return userInput;
+        // activity.OpeningPrompt();
+        activity.StartActivity();
     }
-    static void Main(string[] args)
+
+    public static void Main(string[] args)
     {
-        while (true)
+        ProgramManager programManager = new ProgramManager();
+        int choice = 0;
+
+        while (choice != 4)
         {
-            Console.WriteLine("Select an activity:");
+            Console.Clear();
+            Console.WriteLine("Choose and activity:");
             Console.WriteLine("1. Breathing Activity");
-            Console.WriteLine("2. Reflection Activity");
+            Console.WriteLine("2. Reflecting Activity");
             Console.WriteLine("3. Listing Activity");
             Console.WriteLine("4. Exit");
+            choice = int.Parse(Console.ReadLine());
 
-            // Read user input
-            if (int.TryParse(Console.ReadLine(), out int choice))
+            if (choice == 1)
             {
-                Activity selectedActivity = null;
-                int duration = 0;
-
-                switch (choice)
-                {
-                    case 1:
-                        selectedActivity = new BreathingActivity();
-                        break;
-                    case 2:
-                        // Ask for duration for ReflectionActivity
-                        Console.WriteLine("Enter the duration of the activity in seconds:");
-                        if (int.TryParse(Console.ReadLine(), out duration) && duration > 0)
-                        {
-                            selectedActivity = new ReflectionActivity(duration);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid duration. Please enter a positive integer.");
-                            continue; // Restart the loop if the duration is invalid
-                        }
-                        break;
-                    case 3:
-                        selectedActivity = new ListingActivity();
-                        break;
-                    case 4:
-                        Environment.Exit(0); // Exit the program
-                        break;
-                    default:
-                        Console.WriteLine("Invalid choice. Please try again.");
-                        continue;
-                }
-
-                selectedActivity.StartActivity(); // Start the selected activity
-
-                selectedActivity.EndActivity(); // Display ending message
+                BreathingActivity breathingActivity = new BreathingActivity();
+                breathingActivity.SetActivityType("Breathing Activity");
+                string activityType = breathingActivity.GetActivityType();
+                breathingActivity.SetActivityDescription("This activity will help you relax by walking you through breathing in and out slowly. Clear your mind and focus on your breathing.");
+                string activityDescription = breathingActivity.GetActivityDescription();
+                programManager.StartActivity(breathingActivity);
+                // uncomment the following to test the attribute passing technique
+                // Console.WriteLine($"Attribute value from Breathing Activity: {activityType}");
+                // Console.ReadLine();
             }
-            else
+            else if (choice == 2)
             {
-                Console.WriteLine("Invalid choice. Please try again.");
+                ReflectingActivity reflectingActivity = new ReflectingActivity();
+                reflectingActivity.SetActivityType("Reflecting Activity");
+                programManager.StartActivity(reflectingActivity);
+                string activityType = reflectingActivity.GetActivityType();
+                // Console.WriteLine($"Attribute value from Reflecting Activity: {activityType}");
+                // Console.ReadLine();
+            }
+            else if (choice == 3)
+            {
+                ListingActivity listingActivity = new ListingActivity();
+                listingActivity.SetActivityType("Listing Activity");
+                programManager.StartActivity(listingActivity);
+                string activityType = listingActivity.GetActivityType();
+                // Console.WriteLine($"Attribute value from Listing Activity: {activityType}");
+                // Console.ReadLine();
+            }
+            else if (choice != 4)
+            {
+                Console.WriteLine("Invalid choice. Please select 1, 2, 3, or 4.");
+                Console.ReadLine();
             }
         }
     }
