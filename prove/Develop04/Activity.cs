@@ -35,7 +35,14 @@ public class Activity
     {
         Console.WriteLine("Well done!");
         RunSpinner(2);
-        Console.WriteLine($"You have completed {_originalDuration} seconds of the Breathing Activity.");
+        if (_originalDuration == 1)
+        {
+            Console.WriteLine($"You have completed {_originalDuration} second of the Breathing Activity.");
+        }
+        else
+        {
+            Console.WriteLine($"You have completed {_originalDuration} seconds of the Breathing Activity.");
+        }
         RunSpinner(2);
     }
 
@@ -68,6 +75,7 @@ public class Activity
             Thread.Sleep(1000);
             _index = (_index + 1) % _countdownList.Count;
         }
+        Console.WriteLine();
     }
 
 protected string GetRandomItem(List<string> list)
