@@ -16,7 +16,6 @@ public class Activity
 
     public void OpeningPrompt()
     {
-        Console.Clear();
         Console.WriteLine($"Welcome to the {_activityType}.");
         Console.WriteLine(_activityDescription);
         Console.WriteLine("How long, in seconds, would you like your session?");
