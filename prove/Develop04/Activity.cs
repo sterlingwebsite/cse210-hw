@@ -39,7 +39,7 @@ public class Activity
         RunSpinner(2);
     }
 
-    private void RunSpinner(int _durationInSeconds)
+    protected void RunSpinner(int _durationInSeconds)
     {
         string[] _spinner = { "-", "\\", "|", "/" };
         int _index = 0;
@@ -50,6 +50,52 @@ public class Activity
             _index = (_index + 1) % _spinner.Length; // Move to the next _spinner character
         }
         Console.WriteLine(); // Move to the next line after the _spinner is done
+    }
+
+    protected void RunCountdown6(int _durationInSeconds2)
+    {
+        string[] _countdown = { "6", "5", "4", "3", "2", "1"};
+        int _index = 0;
+        for (int i = 0; i < _durationInSeconds2; i++)
+        {
+            Console.Write($"\r{_countdown[_index]}");
+            Thread.Sleep(1000);
+            _index = (_index + 1) % _countdown.Length;
+        }
+    }
+
+    protected void RunCountdown5(int _durationInSeconds)
+    {
+        string[] _countdown = { "5", "4", "3", "2", "1" };
+        int _index = 0;
+        for (int i = 0; i < _durationInSeconds; i++)
+        {
+            Console.Write($"\r{_countdown[_index]}");
+            Thread.Sleep(1000);
+            _index = (_index + 1) % _countdown.Length;
+        }
+        Console.WriteLine();
+    }
+
+    protected void RunCountdown4(int _durationInSeconds2)
+    {
+        string[] _countdown = { "4", "3", "2", "1"};
+        int _index = 0;
+        for (int i = 0; i < _durationInSeconds2; i++)
+        {
+            Console.Write($"\r{_countdown[_index]}");
+            Thread.Sleep(1000);
+            _index = (_index + 1) % _countdown.Length;
+        }
+    }
+
+protected string GetRandomItem(List<string> list)
+    {
+        Random _random = new Random();
+        int _index = _random.Next(0, list.Count);
+        string item = list[_index];
+        list.RemoveAt(_index); // Remove the selected item to prevent repetition
+        return item;
     }
 
     public virtual void StartActivity()

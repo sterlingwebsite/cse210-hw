@@ -41,28 +41,6 @@ public class ListingActivity : Activity
         Console.WriteLine(); // Output a blank line
     }
 
-    private string GetRandomItem(List<string> _list)
-    {
-        Random _random = new Random();
-        int _index = _random.Next(0, _list.Count);
-        string _item = _list[_index];
-        _list.RemoveAt(_index); // Remove the selected _item to prevent repetition
-        return _item;
-    }
-
-    private void RunCountdown5(int _durationInSeconds)
-    {
-        string[] _countdown = { "5", "4", "3", "2", "1" };
-        int _index = 0;
-        for (int i = 0; i < _durationInSeconds; i++)
-        {
-            Console.Write($"\r{_countdown[_index]}");
-            Thread.Sleep(1000);
-            _index = (_index + 1) % _countdown.Length;
-        }
-        Console.WriteLine();
-    }
-
     public override void StartActivity()
     {
         ListingActivityMainPrompt();
