@@ -8,25 +8,14 @@ public class Activity
     {
         _activityType = value;
     }
-    public string GetActivityType()
-    {
-        return _activityType;
-    }
 
     public void SetActivityDescription(string value)
     {
         _activityDescription = value;
     }
 
-    public string GetActivityDescription()
-    {
-        return _activityDescription;
-    }
-
     public void OpeningPrompt()
     {
-        //Console.WriteLine("This is the opening prompt for the activity.");
-        //Console.ReadLine();
         Console.Clear();
         Console.WriteLine($"Welcome to the {_activityType}.");
         Console.WriteLine(_activityDescription);
@@ -42,6 +31,14 @@ public class Activity
         Console.Clear();
     }
 
+    public void CompletedPrompt()
+    {
+        Console.WriteLine("Well done!");
+        RunSpinner(2);
+        Console.WriteLine($"You have completed {_originalDuration} seconds of the Breathing Activity.");
+        RunSpinner(2);
+    }
+
     private void RunSpinner(int _durationInSeconds)
     {
         string[] _spinner = { "-", "\\", "|", "/" };
@@ -54,11 +51,6 @@ public class Activity
         }
         Console.WriteLine(); // Move to the next line after the _spinner is done
     }
-
-    //public Activity(int _duration)
-    //{
-        //this._duration = _duration;
-    //}
 
     public virtual void StartActivity()
     {

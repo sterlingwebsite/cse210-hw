@@ -1,7 +1,5 @@
 public class ListingActivity : Activity
 {
-    //private int _duration;
-    //private int originalDuration;
     private string specialPrompt;
     private List<string> specialPrompts;
     private int numberOfAnswers;
@@ -17,22 +15,6 @@ public class ListingActivity : Activity
             "Who are some of your personal heroes?"
         };
     }
-
-    //public void ListingActivityOpeningPrompt()
-    //{
-            //Console.Clear();
-            //Console.WriteLine("Welcome to the Listing Activity");
-            //Console.WriteLine("This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.");
-            //Console.WriteLine("How long, in seconds, would you like for your session?");
-            //originalDuration = _duration = int.Parse(Console.ReadLine());
-
-    //}
-    //public void ListingActivitySecondPrompt()
-    //{
-        //Console.Clear();
-        //Console.WriteLine("Get ready...");
-        //RunSpinner(4);
-    //}
 
     public void ListingActivityMainPrompt()
     {
@@ -58,20 +40,6 @@ public class ListingActivity : Activity
         Console.WriteLine($"You listed {numberOfAnswers} items!");
         Console.WriteLine(); // Output a blank line
     }
-
-    public void ListingActivityClosingPrompt()
-    {
-        Console.WriteLine("Well done!");
-        RunSpinner(5);
-    }
-
-    public void ListingActivityClosingPromptTwo()
-    {
-        Console.WriteLine($"You have completed {_originalDuration} seconds of the Listing Activity");
-        RunSpinner(3);
-    }
-
-    // program is complete
 
     private void RunSpinner(int durationInSeconds)
     {
@@ -110,10 +78,6 @@ public class ListingActivity : Activity
 
     public override void StartActivity()
     {
-        //ListingActivityOpeningPrompt();
-        //ListingActivitySecondPrompt();
         ListingActivityMainPrompt();
-        ListingActivityClosingPrompt();
-        ListingActivityClosingPromptTwo();
     }
 }
