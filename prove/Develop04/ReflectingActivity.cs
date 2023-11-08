@@ -1,7 +1,7 @@
 public class ReflectingActivity : Activity
 {
-    private int _duration;
-    private int originalDuration;
+    //private int _duration;
+    //private int originalDuration;
     private List<string> specialPrompts;
     private List<string> interestingQuestions;
     private string specialPrompt;
@@ -31,21 +31,21 @@ public class ReflectingActivity : Activity
         };
     }
 
-    public void ReflectionActivityOpeningPrompt()
-    {
-        Console.Clear();
-        Console.WriteLine("Welcome to the Reflecting Activity.");
-        Console.WriteLine("This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.");
-        Console.WriteLine("How long, in seconds, would you like your session?");
-        originalDuration = _duration = int.Parse(Console.ReadLine());
-    }
+    //public void ReflectionActivityOpeningPrompt()
+    //{
+        //Console.Clear();
+        //Console.WriteLine("Welcome to the Reflecting Activity.");
+        //Console.WriteLine("This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.");
+        //Console.WriteLine("How long, in seconds, would you like your session?");
+        //_originalDuration = _duration = int.Parse(Console.ReadLine());
+    //}
 
-    public void ReflectionActivitySecondPrompt()
-    {
-        Console.Clear();
-        Console.WriteLine("Get ready...");
-        RunSpinner(4);
-    }
+    //public void ReflectionActivitySecondPrompt()
+    //{
+        //Console.Clear();
+        //Console.WriteLine("Get ready...");
+        //RunSpinner(4);
+    //}
 
     public void ReflectionActivityMainPrompt()
     {
@@ -84,7 +84,7 @@ public class ReflectingActivity : Activity
 
     public void ReflectionActivityClosingPromptTwo()
     {
-        Console.WriteLine($"You have completed {originalDuration} seconds of the Reflecting Activity.");
+        Console.WriteLine($"You have completed {_originalDuration} seconds of the Reflecting Activity.");
         RunSpinner(3);
     }
 
@@ -125,8 +125,8 @@ public class ReflectingActivity : Activity
 
     public override void StartActivity()
     {
-        ReflectionActivityOpeningPrompt();
-        ReflectionActivitySecondPrompt();
+        //ReflectionActivityOpeningPrompt();
+        //ReflectionActivitySecondPrompt();
         ReflectionActivityMainPrompt();
         ReflectionActivityThirdPrompt();
         ReflectionActivityClosingPrompt();

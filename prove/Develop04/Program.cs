@@ -2,7 +2,8 @@ public class ProgramManager
 {
     public void StartActivity(Activity activity)
     {
-        // activity.OpeningPrompt();
+        activity.OpeningPrompt();
+        activity.SecondPrompt();
         activity.StartActivity();
     }
 
@@ -25,9 +26,9 @@ public class ProgramManager
             {
                 BreathingActivity breathingActivity = new BreathingActivity();
                 breathingActivity.SetActivityType("Breathing Activity");
-                string activityType = breathingActivity.GetActivityType();
+                //string activityType = breathingActivity.GetActivityType();
                 breathingActivity.SetActivityDescription("This activity will help you relax by walking you through breathing in and out slowly. Clear your mind and focus on your breathing.");
-                string activityDescription = breathingActivity.GetActivityDescription();
+                //string activityDescription = breathingActivity.GetActivityDescription();
                 programManager.StartActivity(breathingActivity);
                 // uncomment the following to test the attribute passing technique
                 // Console.WriteLine($"Attribute value from Breathing Activity: {activityType}");

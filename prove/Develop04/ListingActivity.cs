@@ -1,7 +1,7 @@
 public class ListingActivity : Activity
 {
-    private int _duration;
-    private int originalDuration;
+    //private int _duration;
+    //private int originalDuration;
     private string specialPrompt;
     private List<string> specialPrompts;
     private int numberOfAnswers;
@@ -18,21 +18,21 @@ public class ListingActivity : Activity
         };
     }
 
-    public void ListingActivityOpeningPrompt()
-    {
-            Console.Clear();
-            Console.WriteLine("Welcome to the Listing Activity");
-            Console.WriteLine("This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.");
-            Console.WriteLine("How long, in seconds, would you like for your session?");
-            originalDuration = _duration = int.Parse(Console.ReadLine());
+    //public void ListingActivityOpeningPrompt()
+    //{
+            //Console.Clear();
+            //Console.WriteLine("Welcome to the Listing Activity");
+            //Console.WriteLine("This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.");
+            //Console.WriteLine("How long, in seconds, would you like for your session?");
+            //originalDuration = _duration = int.Parse(Console.ReadLine());
 
-    }
-    public void ListingActivitySecondPrompt()
-    {
-        Console.Clear();
-        Console.WriteLine("Get ready...");
-        RunSpinner(4);
-    }
+    //}
+    //public void ListingActivitySecondPrompt()
+    //{
+        //Console.Clear();
+        //Console.WriteLine("Get ready...");
+        //RunSpinner(4);
+    //}
 
     public void ListingActivityMainPrompt()
     {
@@ -67,7 +67,7 @@ public class ListingActivity : Activity
 
     public void ListingActivityClosingPromptTwo()
     {
-        Console.WriteLine($"You have completed {originalDuration} seconds of the Listing Activity");
+        Console.WriteLine($"You have completed {_originalDuration} seconds of the Listing Activity");
         RunSpinner(3);
     }
 
@@ -110,8 +110,8 @@ public class ListingActivity : Activity
 
     public override void StartActivity()
     {
-        ListingActivityOpeningPrompt();
-        ListingActivitySecondPrompt();
+        //ListingActivityOpeningPrompt();
+        //ListingActivitySecondPrompt();
         ListingActivityMainPrompt();
         ListingActivityClosingPrompt();
         ListingActivityClosingPromptTwo();

@@ -1,7 +1,7 @@
 public class BreathingActivity : Activity
 {
-    private int _duration;
-    private int _fullDuration;
+    //private int _duration;
+    //private int _fullDuration;
 
     private void RunSpinner(int durationInSeconds)
     {
@@ -39,23 +39,22 @@ public class BreathingActivity : Activity
             index = (index + 1) % countdown.Length;
         }
     }
-    public void BreathingActivityOpeningPrompt()
-    {
-        Console.Clear();
-        Console.WriteLine("Welcome to the Breathing Activity.");
-        Console.WriteLine("This activity will help you relax by walking you through breathing in and out slowly. Clear your mind and focus on your breathing.");
-        Console.WriteLine("How long, in seconds, would you like your session?");
-        _duration = int.Parse(Console.ReadLine());
-        _fullDuration = _duration;
-        _duration = (int)(_duration * 0.1);
-    }
+    //public void BreathingActivityOpeningPrompt()
+    //{
+        //Console.Clear();
+       // Console.WriteLine("Welcome to the Breathing Activity.");
+        //Console.WriteLine("This activity will help you relax by walking you through breathing in and out slowly. Clear your mind and focus on your breathing.");
+        //Console.WriteLine("How long, in seconds, would you like your session?");
+        //_duration = int.Parse(Console.ReadLine());
+        //_originalDuration = _duration;
+    //}
 
-    public void BreathingActivitySecondPrompt()
-    {
-        Console.WriteLine("Get ready...");
-        RunSpinner(3);
-        Console.Clear();
-    }
+    //public void BreathingActivitySecondPrompt()
+    //{
+        //Console.WriteLine("Get ready...");
+        //RunSpinner(3);
+        //Console.Clear();
+    //}
 
     public void BreathingActivityBreatheInPrompt()
     {
@@ -75,22 +74,27 @@ public class BreathingActivity : Activity
     {
         Console.WriteLine("Well done!");
         RunSpinner(2);
-        Console.WriteLine($"You have completed {_fullDuration} seconds of the Breathing Activity.");
+        Console.WriteLine($"You have completed {_originalDuration} seconds of the Breathing Activity.");
         RunSpinner(2);
     }
 
     public override void StartActivity()
     {
-        BreathingActivityOpeningPrompt();
-        BreathingActivitySecondPrompt();
+        //BreathingActivityOpeningPrompt();
+        //BreathingActivitySecondPrompt();
 
         while (_duration > 0)
         {
             BreathingActivityBreatheInPrompt();
             BreathingActivityBreatheOutPrompt();
-            _duration--;
+            _duration -= 10;
         }
 
         BreathingActivityCompletedPrompt();
     }
+
+    //public BreathingActivity(int _duration) : base(_duration)
+    //{
+
+    //}
 }
