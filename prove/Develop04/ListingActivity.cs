@@ -41,19 +41,6 @@ public class ListingActivity : Activity
         Console.WriteLine(); // Output a blank line
     }
 
-    private void RunSpinner(int durationInSeconds)
-    {
-        string[] spinner = { "-", "\\", "|", "/" };
-        int index = 0;
-        for (int i = 0; i < durationInSeconds * 10; i++) // Assuming each spin takes 0.1 seconds
-        {
-            Console.Write($"\r{spinner[index]}");
-            Thread.Sleep(100); // Wait for 0.1 seconds
-            index = (index + 1) % spinner.Length;
-        }
-        Console.WriteLine(); // Move to the next line after the spinner is done
-    }
-
     private string GetRandomItem(List<string> list)
     {
         Random random = new Random();
