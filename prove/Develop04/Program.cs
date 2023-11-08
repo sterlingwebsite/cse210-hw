@@ -24,7 +24,7 @@ public class ProgramManager
         while (choice != 4)
         {
             Console.Clear();
-            Console.WriteLine("Choose and activity:");
+            Console.WriteLine("Choose an activity:");
             Console.WriteLine("1. Breathing Activity");
             Console.WriteLine("2. Reflecting Activity");
             Console.WriteLine("3. Listing Activity");
