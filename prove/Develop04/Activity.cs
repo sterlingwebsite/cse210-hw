@@ -36,11 +36,11 @@ public class Activity
         RunSpinner(2);
         if (_originalDuration == 1)
         {
-            Console.WriteLine($"You have completed {_originalDuration} second of the {_activityDescription}.");
+            Console.WriteLine($"You have completed {_originalDuration} second of the {_activityType}.");
         }
         else
         {
-            Console.WriteLine($"You have completed {_originalDuration} seconds of the {_activityDescription}.");
+            Console.WriteLine($"You have completed {_originalDuration} seconds of the {_activityType}.");
         }
         RunSpinner(2);
     }
