@@ -23,7 +23,7 @@ public class ListingActivity : Activity
         _specialPrompt = GetRandomItem(_specialPrompts);
         Console.WriteLine($"--- {_specialPrompt} ---");
         Console.WriteLine("You may begin in:");
-        RunCountdown5(5);
+        Countdown(5);
         // Collect user responses within the specified duration
         DateTime _endTime = DateTime.Now.AddSeconds(_duration);
         _numberOfAnswers = 0;

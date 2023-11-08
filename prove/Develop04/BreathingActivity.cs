@@ -3,14 +3,14 @@ public class BreathingActivity : Activity
     public void BreathingActivityBreatheInPrompt()
     {
         Console.WriteLine("Breath in...");
-        RunCountdown4(4);
+        Countdown(4);
         Console.Clear();
     }
 
     public void BreathingActivityBreatheOutPrompt()
     {
         Console.WriteLine("Now breath out...");
-        RunCountdown6(6);
+        Countdown(6);
         Console.Clear();
     }
 

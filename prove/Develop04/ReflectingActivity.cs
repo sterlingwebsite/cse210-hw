@@ -43,7 +43,7 @@ public class ReflectingActivity : Activity
     {
         Console.WriteLine("Now ponder on each of the following questions as they relate to this experience.");
         Console.WriteLine("You may begin in:");
-        RunCountdown5(5);
+        Countdown(5);
         while (_duration > 0)
         {
             ReflectionActivityInterestingQuestion();

@@ -52,40 +52,21 @@ public class Activity
         Console.WriteLine(); // Move to the next line after the _spinner is done
     }
 
-    protected void RunCountdown6(int _durationInSeconds2)
+    protected void Countdown(int _value)
     {
-        string[] _countdown = { "6", "5", "4", "3", "2", "1"};
-        int _index = 0;
-        for (int i = 0; i < _durationInSeconds2; i++)
+        List<int> _countdownList = new List<int>();
+        
+        for (int i = _value; i >= 1; i--)
         {
-            Console.Write($"\r{_countdown[_index]}");
-            Thread.Sleep(1000);
-            _index = (_index + 1) % _countdown.Length;
+            _countdownList.Add(i);
         }
-    }
 
-    protected void RunCountdown5(int _durationInSeconds)
-    {
-        string[] _countdown = { "5", "4", "3", "2", "1" };
         int _index = 0;
-        for (int i = 0; i < _durationInSeconds; i++)
+        for (int i = 0; i < _value; i++)
         {
-            Console.Write($"\r{_countdown[_index]}");
+            Console.Write($"\r{_countdownList[_index]}");
             Thread.Sleep(1000);
-            _index = (_index + 1) % _countdown.Length;
-        }
-        Console.WriteLine();
-    }
-
-    protected void RunCountdown4(int _durationInSeconds2)
-    {
-        string[] _countdown = { "4", "3", "2", "1"};
-        int _index = 0;
-        for (int i = 0; i < _durationInSeconds2; i++)
-        {
-            Console.Write($"\r{_countdown[_index]}");
-            Thread.Sleep(1000);
-            _index = (_index + 1) % _countdown.Length;
+            _index = (_index + 1) % _countdownList.Count;
         }
     }
 
