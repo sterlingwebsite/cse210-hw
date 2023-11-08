@@ -2,10 +2,18 @@ public class ProgramManager
 {
     public void StartActivity(Activity activity)
     {
-        activity.OpeningPrompt();
-        activity.SecondPrompt();
-        activity.StartActivity();
-        activity.CompletedPrompt();
+        try
+        {
+            Console.Clear();
+            activity.OpeningPrompt();
+            activity.SecondPrompt();
+            activity.StartActivity();
+            activity.CompletedPrompt();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
     }
 
     public static void Main(string[] args)
