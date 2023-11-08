@@ -1,26 +1,26 @@
 public class BreathingActivity : Activity
 {
-    private void RunCountdown6(int durationInSeconds2)
+    private void RunCountdown6(int _durationInSeconds2)
     {
-        string[] countdown = { "6", "5", "4", "3", "2", "1"};
-        int index = 0;
-        for (int i = 0; i < durationInSeconds2; i++)
+        string[] _countdown = { "6", "5", "4", "3", "2", "1"};
+        int _index = 0;
+        for (int i = 0; i < _durationInSeconds2; i++)
         {
-            Console.Write($"\r{countdown[index]}");
+            Console.Write($"\r{_countdown[_index]}");
             Thread.Sleep(1000);
-            index = (index + 1) % countdown.Length;
+            _index = (_index + 1) % _countdown.Length;
         }
     }
 
-    private void RunCountdown4(int durationInSeconds2)
+    private void RunCountdown4(int _durationInSeconds2)
     {
-        string[] countdown = { "4", "3", "2", "1"};
-        int index = 0;
-        for (int i = 0; i < durationInSeconds2; i++)
+        string[] _countdown = { "4", "3", "2", "1"};
+        int _index = 0;
+        for (int i = 0; i < _durationInSeconds2; i++)
         {
-            Console.Write($"\r{countdown[index]}");
+            Console.Write($"\r{_countdown[_index]}");
             Thread.Sleep(1000);
-            index = (index + 1) % countdown.Length;
+            _index = (_index + 1) % _countdown.Length;
         }
     }
 

@@ -1,13 +1,13 @@
 public class ReflectingActivity : Activity
 {
-    private List<string> specialPrompts;
-    private List<string> interestingQuestions;
-    private string specialPrompt;
-    private string interestingQuestion;
+    private List<string> _specialPrompts;
+    private List<string> _interestingQuestions;
+    private string _specialPrompt;
+    private string _interestingQuestion;
 
     public ReflectingActivity()
     {
-        specialPrompts = new List<string>
+        _specialPrompts = new List<string>
         {
             "Think of a time when you stood up for someone else.",
             "Think of a time when you did something really difficult.",
@@ -15,7 +15,7 @@ public class ReflectingActivity : Activity
             "Think of a time when you did something truly selfless."
         };
 
-        interestingQuestions = new List<string>
+        _interestingQuestions = new List<string>
         {
             "Why was this experience meaningful to you?",
             "Have you ever done anything like this before?",
@@ -33,8 +33,8 @@ public class ReflectingActivity : Activity
     {
         Console.Clear();
         Console.WriteLine("Consider the following prompt:");
-        specialPrompt = GetRandomItem(specialPrompts);
-        Console.WriteLine($"--- {specialPrompt} ---");
+        _specialPrompt = GetRandomItem(_specialPrompts);
+        Console.WriteLine($"--- {_specialPrompt} ---");
         Console.WriteLine("When you have something in mind, press enter to continue.");
         Console.ReadLine();
     }
@@ -54,42 +54,42 @@ public class ReflectingActivity : Activity
 
     public void ReflectionActivityInterestingQuestion()
     {
-        interestingQuestion = GetRandomItem(interestingQuestions);
-        Console.WriteLine($"{interestingQuestion}");
+        _interestingQuestion = GetRandomItem(_interestingQuestions);
+        Console.WriteLine($"{_interestingQuestion}");
     }
 
-    private void RunSpinner(int durationInSeconds)
+    private void RunSpinner(int _durationInSeconds)
     {
-        string[] spinner = { "-", "\\", "|", "/" };
-        int index = 0;
-        for (int i = 0; i < durationInSeconds * 10; i++) // Assuming each spin takes 0.1 seconds
+        string[] _spinner = { "-", "\\", "|", "/" };
+        int _index = 0;
+        for (int i = 0; i < _durationInSeconds * 10; i++) // Assuming each spin takes 0.1 seconds
         {
-            Console.Write($"\r{spinner[index]}");
+            Console.Write($"\r{_spinner[_index]}");
             Thread.Sleep(100); // Wait for 0.1 seconds
-            index = (index + 1) % spinner.Length;
+            _index = (_index + 1) % _spinner.Length;
         }
-        Console.WriteLine(); // Move to the next line after the spinner is done
+        Console.WriteLine(); // Move to the next line after the _spinner is done
     }
 
-    private void RunCountdown5(int durationInSeconds)
+    private void RunCountdown5(int _durationInSeconds)
     {
-        string[] countdown = { "5", "4", "3", "2", "1" };
-        int index = 0;
-        for (int i = 0; i < durationInSeconds; i++)
+        string[] _countdown = { "5", "4", "3", "2", "1" };
+        int _index = 0;
+        for (int i = 0; i < _durationInSeconds; i++)
         {
-            Console.Write($"\r{countdown[index]}");
+            Console.Write($"\r{_countdown[_index]}");
             Thread.Sleep(1000);
-            index = (index + 1) % countdown.Length;
+            _index = (_index + 1) % _countdown.Length;
         }
         Console.WriteLine();
     }
 
     private string GetRandomItem(List<string> list)
     {
-        Random random = new Random();
-        int index = random.Next(0, list.Count);
-        string item = list[index];
-        list.RemoveAt(index); // Remove the selected item to prevent repetition
+        Random _random = new Random();
+        int _index = _random.Next(0, list.Count);
+        string item = list[_index];
+        list.RemoveAt(_index); // Remove the selected item to prevent repetition
         return item;
     }
 

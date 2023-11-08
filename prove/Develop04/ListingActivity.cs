@@ -1,12 +1,12 @@
 public class ListingActivity : Activity
 {
-    private string specialPrompt;
-    private List<string> specialPrompts;
-    private int numberOfAnswers;
+    private string _specialPrompt;
+    private List<string> _specialPrompts;
+    private int _numberOfAnswers;
 
     public ListingActivity()
     {
-        specialPrompts = new List<string>
+        _specialPrompts = new List<string>
         {
             "Who are people that you appreciate?",
             "What are personal strengths of yours?",
@@ -20,45 +20,45 @@ public class ListingActivity : Activity
     {
         Console.Clear();
         Console.WriteLine("List as many responses as you can to the following prompt:");
-        specialPrompt = GetRandomItem(specialPrompts);
-        Console.WriteLine($"--- {specialPrompt} ---");
+        _specialPrompt = GetRandomItem(_specialPrompts);
+        Console.WriteLine($"--- {_specialPrompt} ---");
         Console.WriteLine("You may begin in:");
         RunCountdown5(5);
         // Collect user responses within the specified duration
-        DateTime endTime = DateTime.Now.AddSeconds(_duration);
-        numberOfAnswers = 0;
+        DateTime _endTime = DateTime.Now.AddSeconds(_duration);
+        _numberOfAnswers = 0;
 
-        while (DateTime.Now < endTime)
+        while (DateTime.Now < _endTime)
         {
-            string userInput = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(userInput))
+            string _userInput = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(_userInput))
             {
-                numberOfAnswers++;
+                _numberOfAnswers++;
             }
         }
 
-        Console.WriteLine($"You listed {numberOfAnswers} items!");
+        Console.WriteLine($"You listed {_numberOfAnswers} items!");
         Console.WriteLine(); // Output a blank line
     }
 
-    private string GetRandomItem(List<string> list)
+    private string GetRandomItem(List<string> _list)
     {
-        Random random = new Random();
-        int index = random.Next(0, list.Count);
-        string item = list[index];
-        list.RemoveAt(index); // Remove the selected item to prevent repetition
-        return item;
+        Random _random = new Random();
+        int _index = _random.Next(0, _list.Count);
+        string _item = _list[_index];
+        _list.RemoveAt(_index); // Remove the selected _item to prevent repetition
+        return _item;
     }
 
-    private void RunCountdown5(int durationInSeconds)
+    private void RunCountdown5(int _durationInSeconds)
     {
-        string[] countdown = { "5", "4", "3", "2", "1" };
-        int index = 0;
-        for (int i = 0; i < durationInSeconds; i++)
+        string[] _countdown = { "5", "4", "3", "2", "1" };
+        int _index = 0;
+        for (int i = 0; i < _durationInSeconds; i++)
         {
-            Console.Write($"\r{countdown[index]}");
+            Console.Write($"\r{_countdown[_index]}");
             Thread.Sleep(1000);
-            index = (index + 1) % countdown.Length;
+            _index = (_index + 1) % _countdown.Length;
         }
         Console.WriteLine();
     }
