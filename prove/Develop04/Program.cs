@@ -34,12 +34,14 @@ public class ProgramManager
             {
                 ReflectingActivity reflectingActivity = new ReflectingActivity();
                 reflectingActivity.SetActivityType("Reflecting Activity");
+                reflectingActivity.SetActivityDescription("This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.");
                 programManager.StartActivity(reflectingActivity);
             }
             else if (choice == 3)
             {
                 ListingActivity listingActivity = new ListingActivity();
                 listingActivity.SetActivityType("Listing Activity");
+                listingActivity.SetActivityDescription("This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.");
                 programManager.StartActivity(listingActivity);
             }
             else if (choice != 4)
