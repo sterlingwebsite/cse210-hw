@@ -36,11 +36,11 @@ public class Activity
         RunSpinner(2);
         if (_originalDuration == 1)
         {
-            Console.WriteLine($"You have completed {_originalDuration} second of the Breathing Activity.");
+            Console.WriteLine($"You have completed {_originalDuration} second of the {_activityDescription}.");
         }
         else
         {
-            Console.WriteLine($"You have completed {_originalDuration} seconds of the Breathing Activity.");
+            Console.WriteLine($"You have completed {_originalDuration} seconds of the {_activityDescription}.");
         }
         RunSpinner(2);
     }
