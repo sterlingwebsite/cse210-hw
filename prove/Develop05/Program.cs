@@ -1,41 +1,19 @@
-bool isValidInput = false;
-
-while (!isValidInput)
+class Program
 {
-    Console.Write("Enter your choice: ");
-    string choice = Console.ReadLine();
+    private static object _points;
 
-    if (int.TryParse(choice, out int option))
+    static void Main(string[] args)
     {
-        // Process the user's choice
-        isValidInput = ProcessUserChoice(option);
-    }
-    else
-    {
-        Console.WriteLine($"Invalid input: '{choice}' is not a valid number. Please enter a number.");
-    }
-}
-
-// Separate method to handle user's choice
-bool ProcessUserChoice(int option)
-{
-    switch (option)
-    {
-        case 1:
-            // Handle option 1
-            Console.WriteLine("Option 1 selected.");
-            return true;
-        case 2:
-            // Handle option 2
-            Console.WriteLine("Option 2 selected.");
-            return true;
-        // ... handle other cases ...
-        case 6:
-            // Handle option 6 (Quit)
-            Console.WriteLine("Quitting the program.");
-            return true;
-        default:
-            Console.WriteLine("Invalid choice. Please select a valid option.");
-            return false;
+        Console.WriteLine();
+        Console.WriteLine($"You have {_points} points.");
+        Console.WriteLine();
+        Console.WriteLine("Menu Options");
+        Console.WriteLine("     1. Create New Goals");
+        Console.WriteLine("     2. List Goals");
+        Console.WriteLine("     3. Save Goals");
+        Console.WriteLine("     4. Load Goals");
+        Console.WriteLine("     5. Record Event");
+        Console.WriteLine("     6. Quit");
+        Console.Write("Select a choice from the menu: ");
     }
 }
