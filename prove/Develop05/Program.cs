@@ -1,6 +1,7 @@
 class Program
 {
     private static object _points;
+    private static string _choice;
 
     static void Main(string[] args)
     {
@@ -15,5 +16,13 @@ class Program
         Console.WriteLine("     5. Record Event");
         Console.WriteLine("     6. Quit");
         Console.Write("Select a choice from the menu: ");
+        _choice = Console.ReadLine();
+
+        int _choiceInt =int.Parse(_choice);
+
+        if (_choiceInt == 1)
+        {
+
+        }
     }
 }
