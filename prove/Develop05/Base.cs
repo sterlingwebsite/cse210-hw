@@ -184,8 +184,28 @@ public class Base
         int counter = 1;
         foreach (var goal in goalsList)
         {
-            Console.WriteLine($"{counter} Goal: {goal.Goal}, Points: {goal.Points}, Completed: {goal.IsCompleted}, Eternal: {goal.Eternal}, Completions: {goal.Completions}, Bonus Points: {goal.BonusPoints} Checklist Counter: {goal.ChecklistCounter}, Checklist: {goal.Checklist}, Negative: {goal.Negative}");
-            counter ++;
+            // Console.WriteLine($"{counter} Goal: {goal.Goal}, Points: {goal.Points}, Completed: {goal.IsCompleted}, Eternal: {goal.Eternal}, Completions: {goal.Completions}, Bonus Points: {goal.BonusPoints}, Checklist Counter: {goal.ChecklistCounter}, Checklist: {goal.Checklist}, Negative: {goal.Negative}");
+            // counter ++;
+            if (goal.Eternal == false && goal.Checklist == false && goal.Negative == false)
+            {
+                Console.WriteLine($"{counter} Goal: {goal.Goal}, Points: {goal.Points}, Completed: {goal.IsCompleted}");
+                counter ++;
+            }
+            else if (goal.Eternal == true)
+            {
+                Console.WriteLine($"{counter} Goal: {goal.Goal}, Points: {goal.Points}");
+                counter ++;
+            }
+            else if (goal.Checklist == true)
+            {
+                Console.WriteLine($"{counter} Goal: {goal.Goal}, Points Each: {goal.Points}, Completion: {goal.ChecklistCounter}/{goal.Completions}, Bonus Points When Completed: {goal.BonusPoints}");
+                counter ++;
+            }
+            else if (goal.Negative == true)
+            {
+                Console.WriteLine($"{counter} Goal: {goal.Goal}, Points: -{goal.Points}");
+                counter ++;
+            }
         }
     }
 

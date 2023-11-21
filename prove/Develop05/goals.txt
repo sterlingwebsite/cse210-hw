@@ -1,1 +1,5 @@
 cheese|10|True|False|0|0|0|False|False
+milk|7|False|True|0|0|0|False|False
+groceries|5|True|False|3|10|3|True|False
+book|4|False|True|0|0|0|False|False
+meat|7|False|False|0|0|0|False|True
