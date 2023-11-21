@@ -3,13 +3,22 @@ using Microsoft.VisualBasic;
 public class Base
 {
     static List<Base> goalsList = new List<Base>();
+
     public string Goal { get; set; }
     public int Points { get; set; }
     public bool IsCompleted { get; set; }
+    public bool Eternal { get; set; }
+    public int Completions { get; set; }
+    public bool Checklist { get; set; }
+    public static int Score { get; set; }
+    public int ChecklistCounter { get; set; }
+    public int BonusPoints { get; set; }
+    public bool Negative { get; set; }
 
     public static void DisplayMenu()
     {
         Console.WriteLine("Welcome to the Main Menu");
+        Console.WriteLine($"Your score is {Score}");
         Console.WriteLine("1. Create a New Goal");
         Console.WriteLine("2. Show the List of Recorded Goals");
         Console.WriteLine("3. Save the List of Recorded Goals to a File");
@@ -43,6 +52,7 @@ public class Base
             case 4:
                 Console.WriteLine("\nYou selected to Load a List of Recorded Goals from a File");
                 LoadGoalsFromFile();
+                LoadScore();
                 Console.WriteLine();
                 DisplayMenu();
                 break;
@@ -85,7 +95,8 @@ public class Base
         Console.WriteLine("1. Create a new Simple Goal");
         Console.WriteLine("2. Create a new Eternal Goal");
         Console.WriteLine("3. Create a new Checklist Goal");
-        Console.WriteLine("4. Return to Main Menu");
+        Console.WriteLine("4. Create a new Negative Goal");
+        Console.WriteLine("5. Return to Main Menu");
 
         int choice = GetUserChoice2();
 
@@ -102,15 +113,32 @@ public class Base
 
             case 2:
                 Console.WriteLine("\nYou selected to Create a new Eternal Goal");
-                // Add code for Option 2
+                CreateEternalGoal(out string goal2, out int points2, out bool eternal);
+                SaveNewGoalToMainListE(goal2, points2, eternal);
+                Console.WriteLine("New goal saved!");
+                Console.WriteLine();
+                DisplayGoalTypeSelectionMenu();
                 break;
 
             case 3:
                 Console.WriteLine("\nYou selected to Create a new Checklist Goal");
-                // Add code for Option 3
+                CreateChecklistGoal(out string goal3, out int points3, out int completions, out int bonusPoints, out int checklistCounter, out bool checklist);
+                SaveNewGoalToMainListC(goal3, points3, completions, bonusPoints, checklistCounter, checklist);
+                Console.WriteLine("New goal saved!");
+                Console.WriteLine();
+                DisplayGoalTypeSelectionMenu();
                 break;
 
             case 4:
+                Console.WriteLine("\nYou selected to Create a new Negative Goal");
+                CreateNegativeGoal(out string goal4, out int points4, out bool negative);
+                SaveNewGoalToMainListN(goal4, points4, negative);
+                Console.WriteLine("New goal saved!");
+                Console.WriteLine();
+                DisplayGoalTypeSelectionMenu();
+                break;
+
+            case 5:
                 Console.WriteLine("\nYou selected to Return to Main Menu");
                 DisplayMenu();
                 break;
@@ -124,13 +152,13 @@ public class Base
 
     static int GetUserChoice2()
     {
-        Console.Write("Enter your choice (1-4): ");
+        Console.Write("Enter your choice (1-5): ");
         int choice;
 
-        while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 4)
+        while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 5)
         {
-            Console.WriteLine("\nInvalid input. Please enter a number between 1 and 4.");
-            Console.Write("Enter your choice (1-4): ");
+            Console.WriteLine("\nInvalid input. Please enter a number between 1 and 5.");
+            Console.Write("Enter your choice (1-5): ");
         }
 
         return choice;
@@ -156,14 +184,14 @@ public class Base
         int counter = 1;
         foreach (var goal in goalsList)
         {
-            Console.WriteLine($"{counter} Goal: {goal.Goal}, Points: {goal.Points} Completed: {goal.IsCompleted}");
+            Console.WriteLine($"{counter} Goal: {goal.Goal}, Points: {goal.Points}, Completed: {goal.IsCompleted}, Eternal: {goal.Eternal}, Completions: {goal.Completions}, Bonus Points: {goal.BonusPoints} Checklist Counter: {goal.ChecklistCounter}, Checklist: {goal.Checklist}, Negative: {goal.Negative}");
             counter ++;
         }
     }
 
     public override string ToString()
     {
-        return $"{Goal}|{Points}|{IsCompleted}";
+        return $"{Goal}|{Points}|{IsCompleted}|{Eternal}|{Completions}|{BonusPoints}|{ChecklistCounter}|{Checklist}|{Negative}";
     }
 
     static void SaveGoalsToFile()
@@ -176,6 +204,11 @@ public class Base
             {
                 writer.WriteLine(goal);
             }
+        }
+        string fileName2 = "score.txt";
+        using (StreamWriter writer2 = new StreamWriter(fileName2))
+        {
+            writer2.WriteLine(Score);
         }
     }
 
@@ -190,7 +223,7 @@ public class Base
                 foreach (string line in lines)
                 {
                     string[] parts = line.Split('|');
-                    if (parts.Length == 3)
+                    if (parts.Length == 9)
                     {
                         string goal = parts[0];
                         int points;
@@ -199,15 +232,58 @@ public class Base
                             bool isCompleted;
                             if (bool.TryParse(parts[2], out isCompleted))
                             {
-                                Base goalObject = new Base { Goal = goal, Points = points, IsCompleted = isCompleted };
-                                goalsList.Add(goalObject);
+                                bool eternal;
+                                if (bool.TryParse(parts[3], out eternal))
+                                {
+                                    int completions;
+                                    if (int.TryParse(parts[4], out completions))
+                                    {
+                                        int bonusPoints;
+                                        if (int.TryParse(parts[5], out bonusPoints))
+                                        {
+                                            int checklistCounter;
+                                            if (int.TryParse(parts[6], out checklistCounter))
+                                            {
+                                                bool checklist;
+                                                if (bool.TryParse(parts[7], out checklist))
+                                                {
+                                                    bool negative;
+                                                    if (bool.TryParse(parts[8], out negative))
+                                                    {
+                                                        Base goalObject = new Base { Goal = goal, Points = points, IsCompleted = isCompleted, Eternal = eternal, Completions = completions, BonusPoints = bonusPoints, ChecklistCounter = checklistCounter, Checklist = checklist, Negative = negative };
+                                                        goalsList.Add(goalObject);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
+
             return goalsList;
         }
+
+    static void LoadScore()
+    {
+        string fileName2 = "score.txt";
+        using (StreamReader reader = new StreamReader(fileName2))
+        {
+            string content = reader.ReadToEnd();
+
+            if (int.TryParse(content, out int score))
+            {
+                Score = score;
+            }
+            else
+            {
+                Console.WriteLine("Error: Unable to parse score from file.");
+            }
+        }
+    }
 
     static void RecordGoalCompletion()
     {
@@ -225,7 +301,86 @@ public class Base
                 Console.WriteLine("Invalid input. Please enter a valid goal number.");
             }
         }
-        goalsList[completedGoalIndex - 1].IsCompleted = true;
-        Console.WriteLine(goalsList);
+        completedGoalIndex --;
+        if (goalsList[completedGoalIndex].Eternal == false && goalsList[completedGoalIndex].Checklist == false && goalsList[completedGoalIndex].Negative == false)
+        {
+            goalsList[completedGoalIndex].IsCompleted = true;
+            Console.WriteLine($"Congratulations! You completed {goalsList[completedGoalIndex].Goal}. You earned {goalsList[completedGoalIndex].Points} points.");
+            Score += goalsList[completedGoalIndex].Points;
+        }
+        else if (goalsList[completedGoalIndex].Eternal == true && goalsList[completedGoalIndex].Checklist == false)
+        {
+            Console.WriteLine($"Congratulations! You completed {goalsList[completedGoalIndex].Goal}. You earned {goalsList[completedGoalIndex].Points} points.");
+            Score += goalsList[completedGoalIndex].Points;
+        }
+        else if (goalsList[completedGoalIndex].Eternal == false && goalsList[completedGoalIndex].Checklist == true)
+        {
+            Console.WriteLine($"Congratulations! You completed {goalsList[completedGoalIndex].Goal}. You earned {goalsList[completedGoalIndex].Points} points.");
+            Score += goalsList[completedGoalIndex].Points;
+            goalsList[completedGoalIndex].ChecklistCounter ++;
+            if (goalsList[completedGoalIndex].ChecklistCounter == goalsList[completedGoalIndex].Completions)
+            {
+                Console.WriteLine($"Congratulations! You completed your {goalsList[completedGoalIndex].Goal} checklist goal and earned {goalsList[completedGoalIndex].BonusPoints} bonus points.");
+                Score += goalsList[completedGoalIndex].BonusPoints;
+                goalsList[completedGoalIndex].IsCompleted = true;
+            }
+        }
+        else if (goalsList[completedGoalIndex].Eternal == false && goalsList[completedGoalIndex].Checklist == false && goalsList[completedGoalIndex].Negative == true )
+        {
+            Console.WriteLine($"I'm sorry. You completed {goalsList[completedGoalIndex].Goal}. You lost {goalsList[completedGoalIndex].Points} points.");
+            Score -= goalsList[completedGoalIndex].Points;
+        }
+    }
+
+    static void CreateEternalGoal(out string goal, out int points, out bool eternal)
+    {
+        Console.Write("What is your goal? ");
+        goal = Console.ReadLine();
+        Console.Write("How many points is your goal worth? ");
+        points = int.Parse(Console.ReadLine());
+        eternal = true;
+    }
+
+    static void SaveNewGoalToMainListE(string goal, int points, bool eternal)
+    {
+        Base newGoal = new Base { Goal = goal, Points = points, Eternal = eternal };
+        goalsList.Add(newGoal);
+
+    }
+
+    static void CreateChecklistGoal(out string goal, out int points, out int completions, out int bonusPoints, out int checklistCounter, out bool checklist)
+    {
+        Console.Write("What is your goal? ");
+        goal = Console.ReadLine();
+        Console.Write("How many points is your goal worth? ");
+        points = int.Parse(Console.ReadLine());
+        Console.Write("How many completions before your goal is completed? ");
+        completions = int.Parse(Console.ReadLine());
+        Console.Write("How many bonus points are awarded when your goal is completed? ");
+        bonusPoints = int.Parse(Console.ReadLine());
+        checklistCounter = 0;
+        checklist = true;
+    }
+
+    static void SaveNewGoalToMainListC(string goal, int points, int completions, int bonusPoints, int checklistCounter, bool checklist)
+    {
+        Base newGoal = new Base { Goal = goal, Points = points, Completions = completions, BonusPoints = bonusPoints, ChecklistCounter = checklistCounter, Checklist = checklist};
+        goalsList.Add(newGoal);
+    }
+
+    static void CreateNegativeGoal(out string goal, out int points, out bool negative)
+    {
+        Console.Write("What is your goal? ");
+        goal = Console.ReadLine();
+        Console.Write("How many points is your goal worth? ");
+        points = int.Parse(Console.ReadLine());
+        negative = true;
+    }
+
+    static void SaveNewGoalToMainListN(string goal, int points, bool negative)
+    {
+        Base newGoal = new Base { Goal = goal, Points = points, Negative = negative };
+        goalsList.Add(newGoal);
+
     }
 }
